@@ -1,0 +1,9 @@
+.mainPage {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+.imgBlock {
+  display: flex;
+  justify-content: center;
+}
