@@ -7,31 +7,31 @@ const MainPage = () => {
     {
       name: "Address",
       value: "Kyiv, Ukraine",
-      img: "address",
+      img: "./img/address.png",
       link: false,
     },
     {
-      name: "Number",
+      name: "Phone",
       value: "+38 063 565 22 83",
-      img: "tel",
+      img: "./img/tel.png",
       link: false,
     },
     {
       name: "Email",
       value: "lutsenko.vladyslav@gmail.com",
-      img: "email",
+      img: "./img/envelope.png",
       link: false,
     },
     {
       name: "GitHub",
       value: "https://github.com/vlad-lutsenko",
-      img: "gitHub",
+      img: "./img/github.png",
       link: true,
     },
     {
       name: "LinkedIn",
       value: "https://www.linkedin.com/in/vladyslav-lutsenko/",
-      img: "linkedIn",
+      img: "./img/linkedin.png",
       link: true,
     },
   ];
@@ -65,8 +65,7 @@ const MainPage = () => {
     },
     {
       link: "https://sampleforklok.netlify.app/",
-      description:
-        "ukrainian police web memorial - personal project, in process",
+      description: "ukrainian police web memorial - pet project, in process",
     },
   ];
 
@@ -83,7 +82,7 @@ const MainPage = () => {
     {
       company: "ukrainian international airlines",
       position: "Cabin Crew Member",
-      start: "07.2011",
+      start: "07/2011",
       end: "07/2016",
       description: "flight safety providing, in-flight service",
       location: "Kyiv, Ukraine",
@@ -121,41 +120,57 @@ const MainPage = () => {
       <div className={styles.firstColumn}>
         <div className={styles.imgBlock}>
           <img
-            src={require("./img/photo_cv.jpg")}
+            src={require("./img/cv_square.jpg")}
             alt="vlasdyslav_lutsenko"
-            width="200"
+            className={styles.image}
           />
         </div>
         <div className={styles.contacts}>
-          <p className={styles.sidebarBlockTitle}>contacts</p>
-          <ul className={styles.contactsList}>
+          <p className={styles.blockTitle}>contacts</p>
+          <ul className={styles.list}>
             {contacts.map((contact) => {
-              const { name, value, img, link } = contact;
+              const { name, value, link, img } = contact;
               return (
-                <li className={styles.contactsListItem} key={name}>
-                  <p className={styles.contactTitle}>{name}</p>
-                  <p className={styles.contactValue}>
-                    <img src="" alt={img} />`
-                    {link ? (
-                      <a href={value} target="_blank" rel="noopener noreferrer">
-                        {value}
-                      </a>
-                    ) : (
-                      <span>{value}</span>
-                    )}
-                  </p>
+                <li
+                  className={`${styles.listItem} ${styles.contact} ${name}`}
+                  key={name}
+                >
+                  {link ? (
+                    <a
+                      href={value}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.linkLining}
+                    >
+                      <img
+                        src={require(`${img}`)}
+                        alt={name}
+                        className={styles.contactImage}
+                      />
+                      <span className={styles.contactData}>{value}</span>
+                    </a>
+                  ) : (
+                    <>
+                      <img
+                        src={require(`${img}`)}
+                        alt={name}
+                        className={styles.contactImage}
+                      />
+                      <span className={styles.contactData}>{value}</span>
+                    </>
+                  )}
                 </li>
               );
             })}
           </ul>
         </div>
         <div className={styles.languages}>
-          <p className={styles.sidebarBlockTitle}>languages</p>
-          <ul className={styles.languagesList}>
+          <p className={styles.blockTitle}>languages</p>
+          <ul className={styles.list}>
             {languages.map((language) => {
               const { name, level } = language;
               return (
-                <li key={name}>
+                <li key={name} className={styles.listItem}>
                   <p className={styles.contactTitle}>
                     {name} - {level}
                   </p>
@@ -166,25 +181,27 @@ const MainPage = () => {
         </div>
       </div>
       <div className={styles.secondColumn}>
-        <h1>Vladyslav Lutsenko</h1>
+        <h1 className={styles.myName}>Vladyslav Lutsenko</h1>
         <p className={styles.objective}>junior front end developer</p>
         <p className={styles.blockTitle}>Tech skills</p>
         <div className={styles.techSkills}>
-          {techSkills.map((skill) => {
-            return (
-              <p key={skill} className={styles.techSkill}>
-                {skill}
-              </p>
-            );
-          })}
+          <ul className={`${styles.listInRow} ${styles.list}`}>
+            {techSkills.map((skill) => {
+              return (
+                <li key={skill} className={styles.listItem}>
+                  <p className={styles.techSkill}>{skill}</p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
         <div className={styles.projects}>
           <p className={styles.blockTitle}>project experience</p>
-          <ul className={styles.projectsList}>
+          <ul className={styles.list}>
             {projects.map((project) => {
               const { link, description } = project;
               return (
-                <li key={link} className={styles.projectsListItem}>
+                <li key={link} className={styles.listItem}>
                   <p>
                     <a href={link} target="_blank" rel="noopener noreferrer">
                       {description}
@@ -197,7 +214,7 @@ const MainPage = () => {
         </div>
         <div className={styles.experience}>
           <p className={styles.blockTitle}>experience</p>
-          <ul className={styles.experienceList}>
+          <ul className={styles.list}>
             {experience.map((job) => {
               const {
                 company,
@@ -208,13 +225,18 @@ const MainPage = () => {
                 location,
               } = job;
               return (
-                <li key={start} className={styles.experienceListItem}>
-                  <p>{company}</p>
-                  <p>{location}</p>
-                  <p>{position}</p>
-                  <p>
-                    {start}-{end}
-                  </p>
+                <li key={start} className={styles.listItem}>
+                  <div className={styles.workInRow}>
+                    <p className={styles.company}>{company}</p>
+                    <p>{location}</p>
+                  </div>
+                  <div className={styles.workInRow}>
+                    <p className={styles.position}>{position}</p>
+                    <p>
+                      {start} - {end}
+                    </p>
+                  </div>
+
                   <p>{description}</p>
                 </li>
               );
@@ -223,11 +245,11 @@ const MainPage = () => {
         </div>
         <div className={styles.education}>
           <p className={styles.blockTitle}>education</p>
-          <ul className={styles.educationList}>
+          <ul className={styles.list}>
             {education.map((univer) => {
               const { school, start, end, specialty, location } = univer;
               return (
-                <li key={school} className={styles.educationListItem}>
+                <li key={school} className={styles.listItem}>
                   <p>{school}</p>
                   <p>{location}</p>
                   <p>{specialty}</p>
@@ -241,9 +263,9 @@ const MainPage = () => {
         </div>
         <div className={styles.softSkills}>
           <p className={styles.blockTitle}>soft skills</p>
-          <ul className={styles.softSkillsList}>
+          <ul className={` ${styles.list}`}>
             {softSkills.map((skill) => (
-              <li key={skill} className={styles.softSkillsListItem}>
+              <li key={skill} className={styles.listItem}>
                 <p>{skill}</p>
               </li>
             ))}
